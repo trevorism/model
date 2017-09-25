@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response
 @Api("Root Operations")
 @SwaggerDefinition(
         info = @Info(
-                description = "API",
+                description = "Model API sends domain model objects as events",
                 version = "1",
-                title = "API",
+                title = "Model API",
                 contact = @Contact(name = "Trevor Brooks", url = "http://www.trevorism.com")
         )
 )
@@ -35,7 +35,7 @@ class RootController {
     @ApiOperation(value = "Context root of the application")
     @GET
     String displayHelpLink(){
-        '<h1>API</h1><br/>Visit the help page at <a href="/help">/help'
+        '<h1>Model API</h1><br/>Visit the help page at <a href="/api/help">/help'
     }
 
     @ApiOperation(value = "Shows this help page")
