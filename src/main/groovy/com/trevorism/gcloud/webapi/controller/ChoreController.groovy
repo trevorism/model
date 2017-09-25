@@ -1,7 +1,8 @@
 package com.trevorism.gcloud.webapi.controller
 
-import com.trevorism.data.PingingDatastoreRepository
-import com.trevorism.data.Repository
+import com.trevorism.event.DefaultEventProducer
+import com.trevorism.event.EventProducer
+import com.trevorism.event.EventhubProducer
 import com.trevorism.gcloud.model.Chore
 import com.trevorism.http.util.CorrelationGenerator
 
@@ -18,8 +19,8 @@ import java.util.logging.Logger
 @Path("/chore")
 class ChoreController {
 
-    private final Repository<Chore> repository = new PingingDatastoreRepository<>(Chore)
     private static final Logger log = Logger.getLogger(ChoreController.class.name)
+    private final EventProducer<Chore> producer = new DefaultEventProducer<>();
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,8 +28,8 @@ class ChoreController {
     Chore createChore(Chore chore){
         String id = CorrelationGenerator.generate()
         log.info("Creating chore with correlationId: ${id}")
-        repository.create(chore, id)
-
+        producer.sendCorrelatedEvent("chore", chore, id)
+        return chore
 
     }
 }
