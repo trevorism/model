@@ -1,6 +1,6 @@
 $(function(){
 
-    $("#submitChore").click(function(){
+    function createJsonFromForm() {
         var type = $("#type").val();
         var qualifier = $("#qualifier").val();
         var description = $("#description").val();
@@ -9,8 +9,7 @@ $(function(){
         var difficulty = $("#difficulty").val();
         var enjoyment = $("#enjoyment").val();
 
-        var data = new Object();
-
+        var data = {};
         data.name = "trevor";
         data.type = type;
         data.qualifier = qualifier;
@@ -20,7 +19,12 @@ $(function(){
         data.difficulty = parseInt(difficulty);
         data.enjoyment = parseInt(enjoyment);
 
-        var str = JSON.stringify(data);
+        return JSON.stringify(data);
+    }
+
+    $("#submitChore").click(function(){
+        $('#submitChore').prop('disabled', true);
+        var str = createJsonFromForm();
 
         $.ajax ({
             url: "api/chore",
@@ -29,7 +33,10 @@ $(function(){
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function(){
-                alert(JSON.stringify(data));
+                $('#submitChore').prop('disabled', false);
+            },
+            error: function(){
+                $('#submitChore').prop('disabled', false);
             }
         });
     });
