@@ -43,6 +43,7 @@ dependencies {
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.3'
     compile 'com.trevorism:secure-utils:1.0.0'
     compile 'com.trevorism:eventhub-client:1.1.0'
+    compile 'com.trevorism:datastore-client:1.1.0'
 
     compile 'io.swagger:swagger-jersey2-jaxrs:1.5.16'
 
